@@ -1,5 +1,9 @@
 * text=auto eol=lf
 
+# Скрипты в контейнере — только LF (важно для Windows)
+docker/*.sh text eol=lf
+docker/*.php text eol=lf
+
 *.blade.php diff=html
 *.css diff=css
 *.html diff=html

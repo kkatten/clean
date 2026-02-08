@@ -1,5 +1,8 @@
 #!/bin/sh
 set -e
+# Ждём готовности MySQL (на слабых/сетевых тачках БД поднимается дольше)
+php /var/www/docker/wait-for-db.php
+
 if [ ! -f /var/www/vendor/autoload.php ]; then
     composer install --no-scripts --no-interaction
 fi
