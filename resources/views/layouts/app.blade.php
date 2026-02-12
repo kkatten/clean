@@ -4,19 +4,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', config('app.name'))</title>
+    @hasSection('meta_description')
+        <meta name="description" content="@yield('meta_description')">
+    @endif
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-[#FDFDFC] text-[#1b1b18] min-h-screen p-6">
-    <nav class="mb-6 flex gap-4">
-        <a href="{{ route('home') }}">Главная</a>
-        <a href="{{ route('services.index') }}">Услуги</a>
-        <a href="{{ route('about') }}">О компании</a>
-        <a href="{{ route('for_business') }}">Для бизнеса</a>
-        <a href="{{ route('contacts') }}">Контакты</a>
-    </nav>
+<body>
     @if(session('lead_sent'))
-        <p class="text-green-600 mb-4">Заявка отправлена.</p>
+        <div class="fixed top-0 left-0 right-0 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 z-50">
+            <p class="font-bold">Заявка отправлена!</p>
+        </div>
     @endif
-    <main>@yield('content')</main>
+    <div id="app">@yield('content')</div>
 </body>
 </html>

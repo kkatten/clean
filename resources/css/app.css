@@ -1,1 +1,28 @@
 @import "tailwindcss";
+
+/* Базовые стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+    min-height: 100vh;
+}
+
+/* Плавная прокрутка для якорных ссылок */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Отступ для якорных ссылок с учетом фиксированного хедера */
+section[id] {
+    scroll-margin-top: 110px;
+}

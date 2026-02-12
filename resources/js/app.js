@@ -15,8 +15,24 @@ import { createApp } from 'vue';
 
 const app = createApp({});
 
-import ExampleComponent from './components/ExampleComponent.vue';
-app.component('example-component', ExampleComponent);
+// Common components
+import Header from './components/Header.vue';
+app.component('Header', Header);
+
+// Page components
+import HomePage from './components/HomePage.vue';
+import ServicesPage from './components/ServicesPage.vue';
+import ServicePage from './components/ServicePage.vue';
+import ForBusinessPage from './components/ForBusinessPage.vue';
+import ContactsPage from './components/ContactsPage.vue';
+
+app.component('home-page', HomePage);
+app.component('services-page', ServicesPage);
+app.component('service-page', ServicePage);
+app.component('for-business-page', ForBusinessPage);
+app.component('contacts-page', ContactsPage);
+
+console.log('Vue app initialized, all page components registered');
 
 /**
  * The following block of code may be used to automatically register your
@@ -36,4 +52,21 @@ app.component('example-component', ExampleComponent);
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
 
-app.mount('#app');
+// Монтируем Vue на элемент #app
+const mountApp = () => {
+    const appElement = document.getElementById('app');
+    if (appElement) {
+        console.log('Mounting Vue app on #app element');
+        console.log('App element content before mount:', appElement.innerHTML.substring(0, 200));
+        app.mount('#app');
+        console.log('Vue app mounted successfully');
+    } else {
+        console.warn('Element #app not found');
+    }
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mountApp);
+} else {
+    mountApp();
+}
