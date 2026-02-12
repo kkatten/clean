@@ -1,102 +1,100 @@
 <template>
-  <div class="service-page">
+  <div class="min-h-screen bg-[#f9fafb]">
     <Header />
 
-    <section class="service-page__hero">
-      <div class="container">
-        <h1 class="service-page__title">{{ serviceTitle }}</h1>
-        <p v-if="serviceShortDescription" class="service-page__subtitle">{{ serviceShortDescription }}</p>
+    <section class="py-24 px-4 pt-[calc(100px+6rem)] bg-[#1e40af] text-white text-center">
+      <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-[3.5rem] max-md:text-[2.5rem] font-bold mb-4">{{ serviceTitle }}</h1>
+        <p v-if="serviceShortDescription" class="text-[1.25rem] text-[#e5e7eb] max-w-[800px] mx-auto leading-[1.6]">{{ serviceShortDescription }}</p>
       </div>
     </section>
 
-    <section class="service-page__content">
-      <div class="container">
-        <div v-if="serviceDescription" class="service-page__block">
-          <h2 class="service-page__block-title">Что делаем</h2>
-          <div class="service-page__block-content">
-            <p v-for="(paragraph, index) in descriptionParagraphs" :key="index">{{ paragraph }}</p>
+    <section class="py-16 px-4">
+      <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div v-if="serviceDescription" class="bg-white rounded-[0.5rem] p-12 max-md:p-8 max-md:px-6 mb-8 shadow-[0_1px_3px_rgba(0,0,0,0.1)]">
+          <h2 class="text-[2rem] max-md:text-[1.5rem] font-bold text-[#111827] mb-6 pb-4 border-b-2 border-[#e5e7eb]">Что делаем</h2>
+          <div class="text-[#6b7280] leading-[1.8] text-[1.125rem]">
+            <p v-for="(paragraph, index) in descriptionParagraphs" :key="index" class="mb-4">{{ paragraph }}</p>
           </div>
         </div>
 
-        <div v-if="serviceForWho" class="service-page__block">
-          <h2 class="service-page__block-title">Для кого</h2>
-          <div class="service-page__block-content">
-            <p v-for="(paragraph, index) in forWhoParagraphs" :key="index">{{ paragraph }}</p>
+        <div v-if="serviceForWho" class="bg-white rounded-[0.5rem] p-12 max-md:p-8 max-md:px-6 mb-8 shadow-[0_1px_3px_rgba(0,0,0,0.1)]">
+          <h2 class="text-[2rem] max-md:text-[1.5rem] font-bold text-[#111827] mb-6 pb-4 border-b-2 border-[#e5e7eb]">Для кого</h2>
+          <div class="text-[#6b7280] leading-[1.8] text-[1.125rem]">
+            <p v-for="(paragraph, index) in forWhoParagraphs" :key="index" class="mb-4">{{ paragraph }}</p>
           </div>
         </div>
 
-        <div v-if="serviceWhatIncluded && serviceWhatIncluded.length > 0" class="service-page__block">
-          <h2 class="service-page__block-title">Что входит</h2>
-          <div class="service-page__block-content">
-            <ul class="service-page__list">
-              <li v-for="(item, index) in serviceWhatIncluded" :key="index" class="service-page__list-item">
-                <div class="service-page__list-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                  </svg>
-                </div>
-                <span>{{ item }}</span>
-              </li>
-            </ul>
-          </div>
+        <div v-if="serviceWhatIncluded && serviceWhatIncluded.length > 0" class="bg-white rounded-[0.5rem] p-12 max-md:p-8 max-md:px-6 mb-8 shadow-[0_1px_3px_rgba(0,0,0,0.1)]">
+          <h2 class="text-[2rem] max-md:text-[1.5rem] font-bold text-[#111827] mb-6 pb-4 border-b-2 border-[#e5e7eb]">Что входит</h2>
+          <ul class="list-none p-0 m-0">
+            <li v-for="(item, index) in serviceWhatIncluded" :key="index" class="flex items-start gap-4 py-4 border-b border-[#f3f4f6] last:border-b-0">
+              <div class="w-6 h-6 bg-[#dbeafe] rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <svg class="w-3.5 h-3.5 text-[#1e40af]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <span class="text-[#374151] text-[1.125rem] leading-[1.6]">{{ item }}</span>
+            </li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <section id="lead-form-section" class="service-page__lead-form">
-      <div class="container">
-        <h2 class="service-page__lead-form-title">Оставить заявку</h2>
-        <div class="service-page__lead-form-wrapper">
-          <form @submit.prevent="submitLeadForm" class="service-page__lead-form-form">
+    <section id="lead-form-section" class="py-16 px-4 bg-[#1e40af]">
+      <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-[2.5rem] font-bold text-center text-white mb-12">Оставить заявку</h2>
+        <div class="max-w-[600px] mx-auto">
+          <form @submit.prevent="submitLeadForm" class="bg-white rounded-[0.5rem] p-10 shadow-[0_20px_25px_rgba(0,0,0,0.1)]">
             <input type="hidden" name="_token" :value="csrfToken" />
             <input type="hidden" name="source" value="service" />
             <input type="hidden" name="service_id" :value="serviceId" />
             
-            <div class="service-page__lead-form-field">
-              <label class="service-page__lead-form-label">Имя <span class="service-page__lead-form-required">*</span></label>
+            <div class="mb-6">
+              <label class="block font-semibold text-[#111827] mb-2">Имя <span class="text-[#ef4444]">*</span></label>
               <input 
                 v-model="leadForm.name"
                 type="text" 
                 name="name" 
                 required 
                 maxlength="255"
-                class="service-page__lead-form-input"
+                class="w-full px-3 py-3 border-2 border-[#e5e7eb] rounded-[0.5rem] text-base transition-colors focus:outline-none focus:border-[#1e40af]"
                 placeholder="Ваше имя"
               />
             </div>
             
-            <div class="service-page__lead-form-field">
-              <label class="service-page__lead-form-label">Телефон <span class="service-page__lead-form-required">*</span></label>
+            <div class="mb-6">
+              <label class="block font-semibold text-[#111827] mb-2">Телефон <span class="text-[#ef4444]">*</span></label>
               <input 
                 v-model="leadForm.phone"
                 type="tel" 
                 name="phone" 
                 required 
                 maxlength="50"
-                class="service-page__lead-form-input"
+                class="w-full px-3 py-3 border-2 border-[#e5e7eb] rounded-[0.5rem] text-base transition-colors focus:outline-none focus:border-[#1e40af]"
                 placeholder="+7 (___) ___-__-__"
               />
             </div>
             
-            <div class="service-page__lead-form-field">
-              <label class="service-page__lead-form-label">Email</label>
+            <div class="mb-6">
+              <label class="block font-semibold text-[#111827] mb-2">Email</label>
               <input 
                 v-model="leadForm.email"
                 type="email" 
                 name="email"
-                class="service-page__lead-form-input"
+                class="w-full px-3 py-3 border-2 border-[#e5e7eb] rounded-[0.5rem] text-base transition-colors focus:outline-none focus:border-[#1e40af]"
                 placeholder="your@email.com"
               />
             </div>
             
-            <div class="service-page__lead-form-field">
-              <label class="service-page__lead-form-label">Сообщение</label>
+            <div class="mb-6">
+              <label class="block font-semibold text-[#111827] mb-2">Сообщение</label>
               <textarea 
                 v-model="leadForm.message"
                 name="message" 
                 maxlength="2000"
                 rows="4"
-                class="service-page__lead-form-textarea"
+                class="w-full px-3 py-3 border-2 border-[#e5e7eb] rounded-[0.5rem] text-base transition-colors focus:outline-none focus:border-[#1e40af] resize-y min-h-[100px]"
                 placeholder="Опишите вашу задачу..."
               ></textarea>
             </div>
@@ -104,17 +102,17 @@
             <button 
               type="submit" 
               :disabled="leadFormLoading"
-              class="service-page__lead-form-submit"
+              class="w-full py-4 bg-[#1e40af] text-white rounded-[0.5rem] text-[1.125rem] font-semibold cursor-pointer transition-colors hover:bg-[#1e3a8a] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span v-if="!leadFormLoading">Отправить заявку</span>
               <span v-else>Отправка...</span>
             </button>
             
-            <div v-if="leadFormSuccess" class="service-page__lead-form-message service-page__lead-form-message--success">
+            <div v-if="leadFormSuccess" class="mt-4 p-4 rounded-[0.5rem] bg-[#d1fae5] text-[#065f46] border border-[#6ee7b7]">
               Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.
             </div>
             
-            <div v-if="leadFormError" class="service-page__lead-form-message service-page__lead-form-message--error">
+            <div v-if="leadFormError" class="mt-4 p-4 rounded-[0.5rem] bg-[#fee2e2] text-[#991b1b] border border-[#fca5a5]">
               {{ leadFormError }}
             </div>
           </form>
@@ -248,242 +246,3 @@ const submitLeadForm = async () => {
   }
 };
 </script>
-
-<style scoped>
-.service-page {
-  min-height: 100vh;
-  background: #f9fafb;
-}
-
-.container {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
-@media (min-width: 640px) {
-  .container {
-    padding: 0 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .container {
-    padding: 0 2rem;
-  }
-}
-
-/* Hero секция */
-.service-page__hero {
-  padding: 6rem 1rem 4rem;
-  padding-top: calc(100px + 6rem);
-  background: #1e40af;
-  color: white;
-  text-align: center;
-}
-
-.service-page__title {
-  font-size: 3.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.service-page__subtitle {
-  font-size: 1.25rem;
-  color: #e5e7eb;
-  max-width: 800px;
-  margin: 0 auto;
-  line-height: 1.6;
-}
-
-/* Контент */
-.service-page__content {
-  padding: 4rem 1rem;
-}
-
-.service-page__block {
-  background: white;
-  border-radius: 0.5rem;
-  padding: 3rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.service-page__block-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #111827;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid #e5e7eb;
-}
-
-.service-page__block-content {
-  color: #6b7280;
-  line-height: 1.8;
-  font-size: 1.125rem;
-}
-
-.service-page__block-content p {
-  margin-bottom: 1rem;
-}
-
-.service-page__list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.service-page__list-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  padding: 1rem 0;
-  border-bottom: 1px solid #f3f4f6;
-}
-
-.service-page__list-item:last-child {
-  border-bottom: none;
-}
-
-.service-page__list-icon {
-  width: 24px;
-  height: 24px;
-  background: #dbeafe;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 0.25rem;
-}
-
-.service-page__list-icon svg {
-  width: 14px;
-  height: 14px;
-  color: #1e40af;
-}
-
-.service-page__list-item span {
-  color: #374151;
-  font-size: 1.125rem;
-  line-height: 1.6;
-}
-
-/* Форма заявки */
-.service-page__lead-form {
-  padding: 4rem 1rem;
-  background: #1e40af;
-}
-
-.service-page__lead-form-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  text-align: center;
-  color: white;
-  margin-bottom: 3rem;
-}
-
-.service-page__lead-form-wrapper {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.service-page__lead-form-form {
-  background: white;
-  border-radius: 0.5rem;
-  padding: 2.5rem;
-  box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
-}
-
-.service-page__lead-form-field {
-  margin-bottom: 1.5rem;
-}
-
-.service-page__lead-form-label {
-  display: block;
-  font-weight: 600;
-  color: #111827;
-  margin-bottom: 0.5rem;
-}
-
-.service-page__lead-form-required {
-  color: #ef4444;
-}
-
-.service-page__lead-form-input,
-.service-page__lead-form-textarea {
-  width: 100%;
-  padding: 0.75rem;
-  border: 2px solid #e5e7eb;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  transition: border-color 0.3s;
-}
-
-.service-page__lead-form-input:focus,
-.service-page__lead-form-textarea:focus {
-  outline: none;
-  border-color: #1e40af;
-}
-
-.service-page__lead-form-textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-.service-page__lead-form-submit {
-  width: 100%;
-  padding: 1rem;
-  background: #1e40af;
-  color: white;
-  border: none;
-  border-radius: 0.5rem;
-  font-size: 1.125rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.service-page__lead-form-submit:hover:not(:disabled) {
-  background: #1e3a8a;
-}
-
-.service-page__lead-form-submit:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.service-page__lead-form-message {
-  margin-top: 1rem;
-  padding: 1rem;
-  border-radius: 0.5rem;
-}
-
-.service-page__lead-form-message--success {
-  background: #d1fae5;
-  color: #065f46;
-  border: 1px solid #6ee7b7;
-}
-
-.service-page__lead-form-message--error {
-  background: #fee2e2;
-  color: #991b1b;
-  border: 1px solid #fca5a5;
-}
-
-@media (max-width: 768px) {
-  .service-page__title {
-    font-size: 2.5rem;
-  }
-
-  .service-page__block {
-    padding: 2rem 1.5rem;
-  }
-
-  .service-page__block-title {
-    font-size: 1.5rem;
-  }
-}
-</style>

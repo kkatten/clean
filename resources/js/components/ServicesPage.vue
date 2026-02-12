@@ -1,35 +1,35 @@
 <template>
-  <div class="services-page">
+  <div class="min-h-screen bg-[#f9fafb]">
     <Header />
 
-    <section class="services-page__hero">
-      <div class="container">
-        <h1 class="services-page__title">Услуги</h1>
-        <p class="services-page__subtitle">Комплексные решения для клининга</p>
+    <section class="py-24 px-4 pt-[calc(100px+6rem)] bg-[#1e40af] text-white text-center">
+      <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-[3.5rem] max-md:text-[2.5rem] font-bold mb-4">Услуги</h1>
+        <p class="text-[1.25rem] text-[#e5e7eb]">Комплексные решения для клининга</p>
       </div>
     </section>
 
-    <section class="services-page__list">
-      <div class="container">
-        <div v-if="services && services.length > 0" class="services-page__grid">
+    <section class="py-16 px-4">
+      <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div v-if="services && services.length > 0" class="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8 max-w-[1200px] mx-auto">
           <div 
             v-for="service in services" 
             :key="service.id"
-            class="services-page__card"
+            class="bg-white rounded-[0.5rem] p-8 shadow-[0_1px_3px_rgba(0,0,0,0.1)] transition-all duration-300 ease-in-out cursor-pointer hover:-translate-y-[5px] hover:shadow-[0_10px_25px_rgba(0,0,0,0.15)]"
             @click="goToService(service.slug)"
           >
-            <div class="services-page__card-icon">
-              <svg v-if="!service.icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <div class="w-20 h-20 bg-[#dbeafe] rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg v-if="!service.icon" class="w-10 h-10 text-[#2563eb]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
               </svg>
-              <img v-else :src="service.icon" :alt="service.title" />
+              <img v-else :src="service.icon" :alt="service.title" class="w-[60px] h-[60px] object-contain" />
             </div>
-            <h3 class="services-page__card-title">{{ service.title }}</h3>
-            <p class="services-page__card-description">{{ getServiceDescription(service) }}</p>
-            <a :href="`/uslugi/${service.slug}`" @click.stop="goToService(service.slug)" class="services-page__card-link">Подробнее →</a>
+            <h3 class="text-[1.5rem] font-bold text-[#111827] mb-4 text-center">{{ service.title }}</h3>
+            <p class="text-[#6b7280] mb-6 text-center leading-[1.6]">{{ getServiceDescription(service) }}</p>
+            <a :href="`/uslugi/${service.slug}`" @click.stop="goToService(service.slug)" class="block text-center text-[#2563eb] font-semibold no-underline transition-colors duration-300 hover:text-[#1d4ed8]">Подробнее →</a>
           </div>
         </div>
-        <div v-else class="services-page__empty">
+        <div v-else class="text-center py-16 px-4 text-[#6b7280]">
           <p>Услуги временно недоступны</p>
         </div>
       </div>
@@ -63,140 +63,3 @@ const goToService = (slug) => {
 };
 </script>
 
-<style scoped>
-.services-page {
-  min-height: 100vh;
-  background: #f9fafb;
-}
-
-.container {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
-@media (min-width: 640px) {
-  .container {
-    padding: 0 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .container {
-    padding: 0 2rem;
-  }
-}
-
-.services-page__hero {
-  padding: 6rem 1rem 4rem;
-  padding-top: calc(100px + 6rem);
-  background: #1e40af;
-  color: white;
-  text-align: center;
-}
-
-.services-page__title {
-  font-size: 3.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.services-page__subtitle {
-  font-size: 1.25rem;
-  color: #e5e7eb;
-}
-
-.services-page__list {
-  padding: 4rem 1rem;
-}
-
-.services-page__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.services-page__card {
-  background: white;
-  border-radius: 0.5rem;
-  padding: 2rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-}
-
-.services-page__card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
-
-.services-page__card-icon {
-  width: 80px;
-  height: 80px;
-  background: #dbeafe;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1.5rem;
-}
-
-.services-page__card-icon svg {
-  width: 40px;
-  height: 40px;
-  color: #2563eb;
-}
-
-.services-page__card-icon img {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
-}
-
-.services-page__card-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #111827;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
-.services-page__card-description {
-  color: #6b7280;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  line-height: 1.6;
-}
-
-.services-page__card-link {
-  display: block;
-  text-align: center;
-  color: #2563eb;
-  font-weight: 600;
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-.services-page__card-link:hover {
-  color: #1d4ed8;
-}
-
-.services-page__empty {
-  text-align: center;
-  padding: 4rem 1rem;
-  color: #6b7280;
-}
-
-@media (max-width: 768px) {
-  .services-page__title {
-    font-size: 2.5rem;
-  }
-
-  .services-page__grid {
-    grid-template-columns: 1fr;
-  }
-}
-</style>
