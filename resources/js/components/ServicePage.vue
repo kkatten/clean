@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-[#f9fafb]">
+  <div class="min-h-screen w-full min-w-0 overflow-x-hidden bg-[#f9fafb]">
     <Header />
 
     <section class="py-24 px-4 pt-[calc(100px+6rem)] bg-[#1e40af] text-white text-center">
@@ -9,113 +9,65 @@
       </div>
     </section>
 
-    <section class="py-16 px-4">
+    <section class="py-16 px-4 bg-white">
       <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div v-if="serviceDescription" class="bg-white rounded-[0.5rem] p-12 max-md:p-8 max-md:px-6 mb-8 shadow-[0_1px_3px_rgba(0,0,0,0.1)]">
-          <h2 class="text-[2rem] max-md:text-[1.5rem] font-bold text-[#111827] mb-6 pb-4 border-b-2 border-[#e5e7eb]">Что делаем</h2>
-          <div class="text-[#6b7280] leading-[1.8] text-[1.125rem]">
-            <p v-for="(paragraph, index) in descriptionParagraphs" :key="index" class="mb-4">{{ paragraph }}</p>
-          </div>
-        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          <div>
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-[#EEF0FF] rounded-full mb-6">
+              <svg class="w-5 h-5 text-[#414070]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <span class="text-[#414070] text-sm font-medium">{{ serviceTitle }}</span>
+            </div>
 
-        <div v-if="serviceForWho" class="bg-white rounded-[0.5rem] p-12 max-md:p-8 max-md:px-6 mb-8 shadow-[0_1px_3px_rgba(0,0,0,0.1)]">
-          <h2 class="text-[2rem] max-md:text-[1.5rem] font-bold text-[#111827] mb-6 pb-4 border-b-2 border-[#e5e7eb]">Для кого</h2>
-          <div class="text-[#6b7280] leading-[1.8] text-[1.125rem]">
-            <p v-for="(paragraph, index) in forWhoParagraphs" :key="index" class="mb-4">{{ paragraph }}</p>
-          </div>
-        </div>
+            <div v-if="serviceDescription" class="mb-8">
+              <h2 class="text-[2rem] md:text-[2.5rem] font-bold text-[#333333] mb-6 leading-tight">Что делаем</h2>
+              <div class="text-[#6b7280] leading-[1.8] text-[1.125rem]">
+                <p v-for="(paragraph, index) in descriptionParagraphs" :key="index" class="mb-4">{{ paragraph }}</p>
+              </div>
+            </div>
 
-        <div v-if="serviceWhatIncluded && serviceWhatIncluded.length > 0" class="bg-white rounded-[0.5rem] p-12 max-md:p-8 max-md:px-6 mb-8 shadow-[0_1px_3px_rgba(0,0,0,0.1)]">
-          <h2 class="text-[2rem] max-md:text-[1.5rem] font-bold text-[#111827] mb-6 pb-4 border-b-2 border-[#e5e7eb]">Что входит</h2>
-          <ul class="list-none p-0 m-0">
-            <li v-for="(item, index) in serviceWhatIncluded" :key="index" class="flex items-start gap-4 py-4 border-b border-[#f3f4f6] last:border-b-0">
-              <div class="w-6 h-6 bg-[#dbeafe] rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                <svg class="w-3.5 h-3.5 text-[#1e40af]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            <div v-if="serviceForWho" class="mb-8">
+              <h2 class="text-[1.5rem] font-bold text-[#333333] mb-4">Для кого</h2>
+              <div class="text-[#6b7280] leading-[1.8] text-[1.125rem]">
+                <p v-for="(paragraph, index) in forWhoParagraphs" :key="index" class="mb-4">{{ paragraph }}</p>
+              </div>
+            </div>
+
+            <div v-if="serviceWhatIncluded && serviceWhatIncluded.length > 0" class="mb-10">
+              <h2 class="text-[1.5rem] font-bold text-[#333333] mb-4">Что входит</h2>
+              <ul class="list-none p-0 m-0 space-y-3">
+                <li v-for="(item, index) in serviceWhatIncluded" :key="index" class="flex items-start gap-3">
+                  <div class="w-6 h-6 bg-[#dbeafe] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg class="w-3.5 h-3.5 text-[#1e40af]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                  </div>
+                  <span class="text-[#374151] text-[1.125rem] leading-[1.6]">{{ item }}</span>
+                </li>
+              </ul>
+            </div>
+
+            <button @click="openLeadModal" type="button" class="inline-flex items-center gap-2 py-4 px-8 bg-[#5E44EF] text-white rounded-[0.5rem] font-semibold text-[1rem] transition-all hover:bg-[#4d36dd] hover:shadow-[0_8px_20px_rgba(94,68,239,0.35)] cursor-pointer border-0">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              Оставить заявку
+            </button>
+          </div>
+
+          <div class="relative">
+            <div class="border-2 border-[#2563eb] rounded-lg p-3 bg-white shadow-[0_10px_40px_rgba(0,0,0,0.08)]">
+              <div class="aspect-[4/3] bg-[#e5e7eb] rounded-sm min-h-[280px] flex items-center justify-center">
+                <span class="text-[#9ca3af] text-xs">Плейсхолдер</span>
+              </div>
+              <div class="absolute -bottom-2 -right-2 w-14 h-14 rounded-full bg-[#EEF0FF] flex items-center justify-center shadow-md z-20 border-2 border-white">
+                <svg class="w-8 h-8 text-[#414070]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                 </svg>
               </div>
-              <span class="text-[#374151] text-[1.125rem] leading-[1.6]">{{ item }}</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="lead-form-section" class="py-16 px-4 bg-[#1e40af]">
-      <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-[2.5rem] font-bold text-center text-white mb-12">Оставить заявку</h2>
-        <div class="max-w-[600px] mx-auto">
-          <form @submit.prevent="submitLeadForm" class="bg-white rounded-[0.5rem] p-10 shadow-[0_20px_25px_rgba(0,0,0,0.1)]">
-            <input type="hidden" name="_token" :value="csrfToken" />
-            <input type="hidden" name="source" value="service" />
-            <input type="hidden" name="service_id" :value="serviceId" />
-            
-            <div class="mb-6">
-              <label class="block font-semibold text-[#111827] mb-2">Имя <span class="text-[#ef4444]">*</span></label>
-              <input 
-                v-model="leadForm.name"
-                type="text" 
-                name="name" 
-                required 
-                maxlength="255"
-                class="w-full px-3 py-3 border-2 border-[#e5e7eb] rounded-[0.5rem] text-base transition-colors focus:outline-none focus:border-[#1e40af]"
-                placeholder="Ваше имя"
-              />
             </div>
-            
-            <div class="mb-6">
-              <label class="block font-semibold text-[#111827] mb-2">Телефон <span class="text-[#ef4444]">*</span></label>
-              <input 
-                v-model="leadForm.phone"
-                type="tel" 
-                name="phone" 
-                required 
-                maxlength="50"
-                class="w-full px-3 py-3 border-2 border-[#e5e7eb] rounded-[0.5rem] text-base transition-colors focus:outline-none focus:border-[#1e40af]"
-                placeholder="+7 (___) ___-__-__"
-              />
-            </div>
-            
-            <div class="mb-6">
-              <label class="block font-semibold text-[#111827] mb-2">Email</label>
-              <input 
-                v-model="leadForm.email"
-                type="email" 
-                name="email"
-                class="w-full px-3 py-3 border-2 border-[#e5e7eb] rounded-[0.5rem] text-base transition-colors focus:outline-none focus:border-[#1e40af]"
-                placeholder="your@email.com"
-              />
-            </div>
-            
-            <div class="mb-6">
-              <label class="block font-semibold text-[#111827] mb-2">Сообщение</label>
-              <textarea 
-                v-model="leadForm.message"
-                name="message" 
-                maxlength="2000"
-                rows="4"
-                class="w-full px-3 py-3 border-2 border-[#e5e7eb] rounded-[0.5rem] text-base transition-colors focus:outline-none focus:border-[#1e40af] resize-y min-h-[100px]"
-                placeholder="Опишите вашу задачу..."
-              ></textarea>
-            </div>
-            
-            <button 
-              type="submit" 
-              :disabled="leadFormLoading"
-              class="w-full py-4 bg-[#1e40af] text-white rounded-[0.5rem] text-[1.125rem] font-semibold cursor-pointer transition-colors hover:bg-[#1e3a8a] disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <span v-if="!leadFormLoading">Отправить заявку</span>
-              <span v-else>Отправка...</span>
-            </button>
-            
-            <div v-if="leadFormSuccess" class="mt-4 p-4 rounded-[0.5rem] bg-[#d1fae5] text-[#065f46] border border-[#6ee7b7]">
-              Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.
-            </div>
-            
-            <div v-if="leadFormError" class="mt-4 p-4 rounded-[0.5rem] bg-[#fee2e2] text-[#991b1b] border border-[#fca5a5]">
-              {{ leadFormError }}
-            </div>
-          </form>
+          </div>
         </div>
       </div>
     </section>
@@ -123,7 +75,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref, reactive } from 'vue';
+import { computed } from 'vue';
 import Header from './Header.vue';
 
 const props = defineProps({
@@ -177,72 +129,7 @@ const serviceWhatIncluded = computed(() => {
   return props.service?.what_included || [];
 });
 
-const serviceId = computed(() => {
-  return props.service?.id || null;
-});
-
-const csrfToken = ref('');
-const leadFormLoading = ref(false);
-const leadFormSuccess = ref(false);
-const leadFormError = ref('');
-
-const leadForm = reactive({
-  name: '',
-  phone: '',
-  email: '',
-  message: ''
-});
-
-onMounted(() => {
-  const token = document.querySelector('meta[name="csrf-token"]');
-  if (token) {
-    csrfToken.value = token.getAttribute('content');
-  }
-});
-
-const submitLeadForm = async () => {
-  leadFormLoading.value = true;
-  leadFormSuccess.value = false;
-  leadFormError.value = '';
-  
-  try {
-    const formData = new FormData();
-    formData.append('_token', csrfToken.value);
-    formData.append('source', 'service');
-    if (serviceId.value) {
-      formData.append('service_id', serviceId.value);
-    }
-    formData.append('name', leadForm.name);
-    formData.append('phone', leadForm.phone);
-    formData.append('email', leadForm.email);
-    formData.append('message', leadForm.message);
-    
-    const response = await fetch('/zayavka', {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      }
-    });
-    
-    if (response.ok) {
-      leadFormSuccess.value = true;
-      leadForm.name = '';
-      leadForm.phone = '';
-      leadForm.email = '';
-      leadForm.message = '';
-      
-      setTimeout(() => {
-        leadFormSuccess.value = false;
-      }, 5000);
-    } else {
-      const data = await response.json();
-      leadFormError.value = data.message || 'Произошла ошибка при отправке заявки';
-    }
-  } catch (err) {
-    leadFormError.value = 'Произошла ошибка при отправке заявки. Попробуйте позже.';
-  } finally {
-    leadFormLoading.value = false;
-  }
+const openLeadModal = () => {
+  window.dispatchEvent(new CustomEvent('open-lead-form'));
 };
 </script>

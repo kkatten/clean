@@ -1,9 +1,11 @@
 <template>
-  <div class="min-h-screen mt-0 pt-0">
+  <div class="min-h-screen w-full min-w-0 mt-0 pt-0 overflow-x-hidden">
     <Header />
 
-    <section class="relative min-h-screen bg-[#1e40af] overflow-hidden flex items-center justify-center py-8 pt-[calc(1.5rem*2+1.5rem+28px)] mt-0">
-      <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="relative min-h-screen overflow-hidden flex items-center justify-center py-8 pt-[calc(1.5rem*2+1.5rem+28px)] mt-0">
+      <div class="absolute inset-0 bg-[#374151]"></div>
+      <div class="absolute inset-0 bg-[#1e40af]/90"></div>
+      <div class="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div class="max-w-[1200px] mx-auto text-center">
         <div class="inline-flex items-center gap-2 px-6 py-3 bg-transparent border border-[rgba(255,255,255,0.3)] rounded-[0.375rem] mb-8">
           <div class="w-5 h-5 text-white">
@@ -11,28 +13,28 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
           </div>
-          <span class="text-white text-sm font-medium">Профессиональная химчистка в Кирове</span>
+          <span class="text-white text-sm font-medium">Клининг для торговых центров, офисов и БЦ</span>
         </div>
 
         <h1 class="text-[4rem] max-md:text-[2.5rem] font-bold text-white uppercase tracking-[0.05em] mb-6 leading-[1.1]">{{ pageTitle }}</h1>
 
         <p class="text-[1.25rem] max-md:text-base text-[#e0e7ff] mb-12 leading-[1.6]">
-          Коммерческий клининг для ТЦ, офисов и коммерческих помещений.<br />
-          Свои мощности, без субподрядчиков, полный цикл услуг
+          Торговые центры, офисы, бизнес-центры — комплексное обслуживание в Кирове.<br />
+          Свои мощности, без субподрядчиков, долгосрочные договоры.
         </p>
 
         <div class="flex flex-col max-md:flex-col md:flex-row gap-4 justify-center mb-16">
-          <a href="tel:+78332776264" class="flex items-center gap-3 px-8 py-4 bg-[#2563eb] text-white rounded-[0.375rem] font-semibold text-lg no-underline transition-all duration-300 hover:bg-[#1d4ed8] hover:shadow-[0_4px_12px_rgba(37,99,235,0.4)]">
+          <a href="tel:+78332776264" class="flex items-center gap-3 px-8 py-4 bg-[#2563eb] text-white rounded-[0.375rem] font-semibold text-lg no-underline transition-all duration-300 hover:bg-[#1d4ed8] hover:shadow-[0_4px_12px_rgba(37,99,235,0.4)] hover:scale-105">
             <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
             </svg>
             77-62-64
           </a>
-          <button @click="scrollToForm" class="flex items-center gap-3 px-8 py-4 bg-white text-[#1e40af] border-2 border-white rounded-[0.375rem] font-semibold text-lg transition-all duration-300 hover:bg-[#f8fafc] hover:border-[#e0e7ff]">
+          <button @click="openLeadModal" class="flex items-center gap-3 px-8 py-4 bg-white text-[#1e40af] border-2 border-white rounded-[0.375rem] font-semibold text-lg transition-all duration-300 hover:bg-[#f8fafc] hover:border-[#e0e7ff] hover:scale-105 cursor-pointer">
             <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
             </svg>
-            Заказать химчистку
+            Заказать клининг
           </button>
         </div>
 
@@ -74,73 +76,122 @@
       </div>
     </section>
 
-    <section v-if="utpBlock" class="py-16 bg-white text-center">
-      <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-[3rem] max-md:text-[2rem] font-bold text-[#111827] max-w-[1000px] mx-auto leading-[1.2]">{{ utpBlock.text || utpBlock.title }}</h2>
+    <section v-if="utpBlock" class="py-16 bg-white">
+      <div class="max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <!-- Левая колонка: текст -->
+          <div>
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-[#EEF0FF] rounded-full mb-6">
+              <svg class="w-5 h-5 text-[#414070]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <span class="text-[#414070] text-sm font-medium">Почему выбирают нас</span>
+            </div>
+            <h2 class="text-[2rem] md:text-[2.5rem] font-bold text-[#333333] mb-8 leading-tight">
+              Коммерческий клининг в Кирове
+            </h2>
+            <ul class="space-y-6 mb-10">
+              <li class="flex gap-4">
+                <div class="w-12 h-12 rounded-full bg-[#DFF2DF] flex items-center justify-center flex-shrink-0">
+                  <svg class="w-6 h-6 text-[#166534]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-bold text-[#333333] text-lg mb-1">Свои мощности</h3>
+                  <p class="text-[#6b7280] text-sm leading-relaxed">Цех, оборудование, ковры. Всё под контролем — качество и сроки в наших руках.</p>
+                </div>
+              </li>
+              <li class="flex gap-4">
+                <div class="w-12 h-12 rounded-full bg-[#EEF0FF] flex items-center justify-center flex-shrink-0">
+                  <svg class="w-6 h-6 text-[#414070]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-bold text-[#333333] text-lg mb-1">Без субподрядчиков</h3>
+                  <p class="text-[#6b7280] text-sm leading-relaxed">Собственные бригады и техника. Один подрядчик — предсказуемый результат.</p>
+                </div>
+              </li>
+            </ul>
+            <button @click="openLeadModal" type="button" class="inline-flex items-center gap-2 py-4 px-8 bg-[#5E44EF] text-white rounded-[0.5rem] font-semibold text-[1rem] transition-all hover:bg-[#4d36dd] hover:shadow-[0_8px_20px_rgba(94,68,239,0.35)] cursor-pointer border-0">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              Заказать клининг
+            </button>
+          </div>
+          <!-- Правая колонка: placeholder -->
+          <div class="rounded-lg overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.08)]">
+            <div class="aspect-[4/3] bg-[#e5e7eb] min-h-[280px]"></div>
+          </div>
+        </div>
       </div>
     </section>
 
     <section id="why-us" v-if="whyUsBlock" class="py-16 bg-[#f9fafb]">
       <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-[2.5rem] font-bold text-center text-[#111827] mb-12">{{ whyUsBlock.title }}</h2>
-        <div class="grid grid-cols-1 max-md:grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-8 max-w-[1400px] mx-auto">
+        <h2 class="text-[2.5rem] font-bold text-center text-[#111827] mb-4">{{ whyUsBlock.title }}</h2>
+        <p class="text-[#6b7280] text-center text-lg max-w-[640px] mx-auto mb-12 leading-relaxed">Собственное производство, современное оборудование и опытные специалисты — работаем без посредников и субподрядчиков.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-[1400px] mx-auto">
           <div 
             v-for="(item, index) in whyUsBlock.items" 
             :key="index"
-            class="bg-white rounded-[0.5rem] p-8 border border-[#e5e7eb] shadow-[0_1px_3px_rgba(0,0,0,0.05)] flex items-center gap-4 transition-all duration-300 ease-in-out hover:-translate-y-[2px] hover:shadow-[0_4px_12px_rgba(30,64,175,0.15)] hover:border-[#2563eb]"
+            class="bg-white rounded-lg p-6 border border-[#e5e7eb] shadow-[0_1px_3px_rgba(0,0,0,0.05)] transition-all duration-300 ease-in-out hover:-translate-y-[2px] hover:shadow-[0_4px_12px_rgba(30,64,175,0.15)] hover:border-[#2563eb]"
           >
-            <div class="w-12 h-12 bg-[#eff6ff] rounded-full border border-[#dbeafe] flex items-center justify-center flex-shrink-0">
-              <svg class="w-6 h-6 text-[#2563eb]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-            </div>
-            <span class="text-[1.125rem] font-semibold text-[#111827]">{{ item }}</span>
+            <div class="aspect-[4/3] bg-[#e5e7eb] rounded-md mb-5"></div>
+            <span class="text-[1.125rem] font-semibold text-[#111827] block mb-2">{{ typeof item === 'object' ? item.title : item }}</span>
+            <p v-if="typeof item === 'object' && item.description" class="text-[#6b7280] text-sm leading-relaxed">{{ item.description }}</p>
           </div>
         </div>
+        <p class="text-center mt-8">
+          <a href="/o-kompanii" class="inline-flex items-center gap-2 text-[#1e40af] font-semibold no-underline hover:text-[#1d4ed8]">Подробнее о компании →</a>
+        </p>
       </div>
     </section>
 
-    <section id="services" v-if="services && services.length > 0" class="py-16 bg-[#f9fafb]">
+    <section id="services" class="py-16 bg-white">
       <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-[2.5rem] font-bold text-center text-[#111827] mb-12">Основные услуги</h2>
-        <div class="grid grid-cols-1 max-md:grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-8 max-w-[1400px] mx-auto">
+        <h2 class="text-[2.5rem] font-bold text-center text-[#111827] mb-4">Основные услуги</h2>
+        <p class="text-[#6b7280] text-center text-lg max-w-[640px] mx-auto mb-12 leading-relaxed">Полный спектр клининговых работ — от регулярной уборки до химчистки и мойки фасадов. Подберём решение под ваши задачи.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-[1400px] mx-auto">
           <div 
-            v-for="service in services" 
-            :key="service.id"
-            class="bg-white rounded-[0.5rem] p-8 border border-[#e5e7eb] shadow-[0_1px_3px_rgba(0,0,0,0.05)] transition-all duration-300 ease-in-out cursor-pointer hover:-translate-y-[2px] hover:shadow-[0_4px_12px_rgba(30,64,175,0.15)] hover:border-[#2563eb]"
-            @click="goToService(service.slug)"
-          >
-            <div class="w-16 h-16 bg-[#eff6ff] rounded-full border border-[#dbeafe] flex items-center justify-center mx-auto mb-6">
-              <svg v-if="!service.icon" class="w-8 h-8 text-[#2563eb]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-              <img v-else :src="service.icon" :alt="service.title" class="w-12 h-12 object-contain" />
-            </div>
-            <h3 class="text-[1.25rem] font-bold text-[#111827] mb-3 text-center">{{ service.title }}</h3>
-            <p class="text-[#6b7280] mb-4 text-center leading-[1.6]">{{ getServiceDescription(service) }}</p>
-            <a :href="`/uslugi/${service.slug}`" @click.stop="goToService(service.slug)" class="block text-center text-[#1e40af] font-semibold no-underline transition-colors duration-300 hover:text-[#1e3a8a]">Подробнее →</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="for-business" v-if="forWhoBlock" class="py-16 bg-white">
-      <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-[2.5rem] font-bold text-center text-[#111827] mb-12">{{ forWhoBlock.title }}</h2>
-        <div class="grid grid-cols-1 max-md:grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-8 max-w-[1400px] mx-auto">
-          <div 
-            v-for="(item, index) in forWhoBlock.items" 
+            v-for="(item, index) in serviceExamples" 
             :key="index"
-            class="bg-white border border-[#e5e7eb] rounded-[0.5rem] p-8 text-center transition-all duration-300 ease-in-out hover:-translate-y-[2px] hover:shadow-[0_4px_12px_rgba(30,64,175,0.15)] hover:border-[#2563eb]"
+            class="bg-white rounded-lg p-6 border border-[#e5e7eb] shadow-[0_1px_3px_rgba(0,0,0,0.05)] transition-all duration-300 ease-in-out hover:-translate-y-[2px] hover:shadow-[0_4px_12px_rgba(30,64,175,0.15)] hover:border-[#2563eb]"
           >
-            <div class="w-16 h-16 bg-[#eff6ff] border border-[#dbeafe] rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg class="w-8 h-8 text-[#2563eb]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-            </div>
-            <span class="text-[1.125rem] font-semibold text-[#111827]">{{ item }}</span>
+            <div class="aspect-[4/3] bg-[#e5e7eb] rounded-md mb-5"></div>
+            <span class="text-[1.125rem] font-semibold text-[#111827] block mb-2">{{ item.title }}</span>
+            <p class="text-[#6b7280] text-sm leading-relaxed">{{ item.description }}</p>
           </div>
         </div>
+        <p class="text-center mt-8">
+          <a href="/uslugi" class="inline-flex items-center gap-2 text-[#1e40af] font-semibold no-underline hover:text-[#1d4ed8]">Подробнее обо всех услугах →</a>
+        </p>
+      </div>
+    </section>
+
+    <section id="for-who" v-if="forWhoBlock" class="py-16 bg-[#f9fafb]">
+      <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-[2.5rem] font-bold text-center text-[#111827] mb-4">{{ forWhoBlock.title }}</h2>
+        <p class="text-[#6b7280] text-center text-lg max-w-[640px] mx-auto mb-12 leading-relaxed">Частные клиенты, офисы, торговые площадки — находим подход к каждому заказчику.</p>
+        <div class="grid grid-cols-1 max-md:grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-8 max-w-[1400px] mx-auto">
+          <a
+            v-for="(item, index) in forWhoBlock.items"
+            :key="index"
+            :href="item === 'Бизнес' ? '/dlya-biznesa' : '/uslugi'"
+            class="bg-white border border-[#e5e7eb] rounded-lg p-6 text-center transition-all duration-300 ease-in-out hover:-translate-y-[2px] hover:shadow-[0_4px_12px_rgba(30,64,175,0.15)] hover:border-[#2563eb] no-underline block"
+          >
+            <div class="w-32 h-32 sm:w-40 sm:h-40 bg-[#e5e7eb] rounded-lg mx-auto mb-4 flex items-center justify-center">
+              <span class="text-[#9ca3af] text-xs">Плейсхолдер</span>
+            </div>
+            <span class="text-[1.125rem] font-semibold text-[#111827]">{{ item }}</span>
+          </a>
+        </div>
+        <p class="text-center mt-8">
+          <a href="/dlya-biznesa" class="inline-flex items-center gap-2 text-[#1e40af] font-semibold no-underline hover:text-[#1d4ed8]">Подробнее о клининге для бизнеса →</a>
+        </p>
       </div>
     </section>
 
@@ -260,6 +311,24 @@
             <a href="https://vk.ru/clean.kirov" target="_blank" class="block text-[#d1d5db] no-underline transition-colors duration-300 hover:text-[#60a5fa]">VK: clean.kirov</a>
           </div>
         </div>
+        <div class="mt-12 max-w-[1200px] mx-auto">
+          <div class="rounded-2xl overflow-hidden border border-[rgba(255,255,255,0.15)] shadow-lg aspect-[21/9] min-h-[250px]">
+            <iframe
+              src="https://www.openstreetmap.org/export/embed.html?bbox=49.65%2C58.59%2C49.68%2C58.61&layer=mapnik&marker=58.598%2C49.666"
+              width="100%"
+              height="100%"
+              frameborder="0"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              class="block w-full h-full min-h-[250px]"
+              title="Карта: ул. Романа Ердякова 50 стр 2, Киров"
+            ></iframe>
+          </div>
+          <p class="mt-4 text-center">
+            <a href="https://yandex.ru/maps/43/kirov/house/ulitsa_romana_erdiakova_50s2/Z04YcAVmSkwOQFtvfXt0dX5lZg==/?ll=49.665897%2C58.598276&z=17" target="_blank" rel="noopener" class="text-[#93c5fd] no-underline hover:underline text-sm">Открыть в Яндекс.Картах</a>
+          </p>
+        </div>
       </div>
     </section>
   </div>
@@ -312,25 +381,16 @@ const forWhoBlock = computed(() => {
   return props.page?.blocks?.for_who || null;
 });
 
-const scrollToForm = () => {
-  const formSection = document.getElementById('lead-form-section');
-  if (formSection) {
-    formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-};
+const serviceExamples = [
+  { title: 'Уборка торговых точек', description: 'Комплексное обслуживание магазинов и торговых площадей.' },
+  { title: 'Мойка фасадов', description: 'Промывка витрин и фасадов до 16 м, своё оборудование.' },
+  { title: 'Уборка офисов', description: 'Регулярная уборка офисных помещений и БЦ.' },
+  { title: 'Коммерческий клининг', description: 'Обслуживание ТЦ, складов, производственных зон.' },
+  { title: 'Химчистка мебели', description: 'Чистка диванов, кресел, ковров профессиональными средствами.' }
+];
 
-const getServiceDescription = (service) => {
-  if (service.short_description) return service.short_description;
-  if (service.description) {
-    return service.description.length > 100 
-      ? service.description.substring(0, 100) + '...' 
-      : service.description;
-  }
-  return 'Подробная информация об услуге';
-};
-
-const goToService = (slug) => {
-  window.location.href = `/uslugi/${slug}`;
+const openLeadModal = () => {
+  window.dispatchEvent(new CustomEvent('open-lead-form'));
 };
 
 const csrfToken = ref('');

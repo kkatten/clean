@@ -1,10 +1,11 @@
 <template>
-  <div class="min-h-screen bg-[#f9fafb]">
+  <div class="min-h-screen w-full min-w-0 overflow-x-hidden bg-[#f9fafb]">
     <Header />
 
     <section class="py-24 px-4 pt-[calc(100px+6rem)] bg-[#1e40af] text-white text-center">
       <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 class="text-[3.5rem] max-md:text-[2.5rem] font-bold">{{ pageTitle }}</h1>
+        <h1 class="text-[3.5rem] max-md:text-[2.5rem] font-bold mb-4">{{ pageTitle }}</h1>
+        <p class="text-[1.25rem] text-[#e5e7eb] max-w-[600px] mx-auto leading-[1.6]">Телефон, адрес, мессенджеры — свяжитесь удобным способом или оставьте заявку, мы перезвоним.</p>
       </div>
     </section>
 
@@ -120,6 +121,26 @@
               </div>
             </form>
           </div>
+        </div>
+
+        <div class="mt-16 max-w-[1200px] mx-auto">
+          <h2 class="text-[1.5rem] font-bold text-[#111827] mb-6">Как нас найти</h2>
+          <div class="rounded-lg overflow-hidden border border-[#e5e7eb] shadow-[0_1px_3px_rgba(0,0,0,0.1)] aspect-video min-h-[300px]">
+            <iframe
+              src="https://www.openstreetmap.org/export/embed.html?bbox=49.65%2C58.59%2C49.68%2C58.61&layer=mapnik&marker=58.598%2C49.666"
+              width="100%"
+              height="100%"
+              frameborder="0"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              class="block w-full h-full min-h-[300px]"
+              title="Карта: ул. Романа Ердякова 50 стр 2, Киров"
+            ></iframe>
+          </div>
+          <p class="mt-4 text-[#6b7280] text-sm">
+            <a href="https://yandex.ru/maps/43/kirov/house/ulitsa_romana_erdiakova_50s2/Z04YcAVmSkwOQFtvfXt0dX5lZg==/?ll=49.665897%2C58.598276&z=17" target="_blank" rel="noopener" class="text-[#1e40af] no-underline hover:underline">Открыть в Яндекс.Картах</a>
+          </p>
         </div>
       </div>
     </section>

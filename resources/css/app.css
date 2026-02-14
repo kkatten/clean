@@ -1,7 +1,15 @@
 @import "tailwindcss";
 
-@source "../js";
-@source "../views";
+@source "../js/**/*.{js,vue}";
+@source "../views/**/*.blade.php";
+
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden;
+}
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -11,6 +19,8 @@ body {
 
 #app {
     min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 /* Плавная прокрутка для якорных ссылок */

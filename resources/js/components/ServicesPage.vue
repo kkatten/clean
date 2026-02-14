@@ -1,11 +1,11 @@
 <template>
-  <div class="min-h-screen bg-[#f9fafb]">
+  <div class="min-h-screen w-full min-w-0 overflow-x-hidden bg-[#f9fafb]">
     <Header />
 
     <section class="py-24 px-4 pt-[calc(100px+6rem)] bg-[#1e40af] text-white text-center">
       <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         <h1 class="text-[3.5rem] max-md:text-[2.5rem] font-bold mb-4">Услуги</h1>
-        <p class="text-[1.25rem] text-[#e5e7eb]">Комплексные решения для клининга</p>
+        <p class="text-[1.25rem] max-md:text-[1.1rem] text-[#e5e7eb] max-w-[800px] mx-auto leading-[1.6]">Регулярная уборка офисов и торговых центров, мойка фасадов и остекления, химчистка ковров и мебели, грязезащитные покрытия — подберём решение под ваши задачи.</p>
       </div>
     </section>
 
@@ -15,15 +15,10 @@
           <div 
             v-for="service in services" 
             :key="service.id"
-            class="bg-white rounded-[0.5rem] p-8 shadow-[0_1px_3px_rgba(0,0,0,0.1)] transition-all duration-300 ease-in-out cursor-pointer hover:-translate-y-[5px] hover:shadow-[0_10px_25px_rgba(0,0,0,0.15)]"
+            class="bg-white rounded-lg p-6 border border-[#e5e7eb] shadow-[0_1px_3px_rgba(0,0,0,0.05)] transition-all duration-300 ease-in-out cursor-pointer hover:-translate-y-[2px] hover:shadow-[0_4px_12px_rgba(30,64,175,0.15)] hover:border-[#2563eb]"
             @click="goToService(service.slug)"
           >
-            <div class="w-20 h-20 bg-[#dbeafe] rounded-full flex items-center justify-center mx-auto mb-6">
-              <svg v-if="!service.icon" class="w-10 h-10 text-[#2563eb]" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-              <img v-else :src="service.icon" :alt="service.title" class="w-[60px] h-[60px] object-contain" />
-            </div>
+            <div class="w-16 h-16 bg-[#e5e7eb] rounded-lg mx-auto mb-5"></div>
             <h3 class="text-[1.5rem] font-bold text-[#111827] mb-4 text-center">{{ service.title }}</h3>
             <p class="text-[#6b7280] mb-6 text-center leading-[1.6]">{{ getServiceDescription(service) }}</p>
             <a :href="`/uslugi/${service.slug}`" @click.stop="goToService(service.slug)" class="block text-center text-[#2563eb] font-semibold no-underline transition-colors duration-300 hover:text-[#1d4ed8]">Подробнее →</a>

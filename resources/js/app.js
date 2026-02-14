@@ -25,8 +25,10 @@ import ServicesPage from './components/ServicesPage.vue';
 import ServicePage from './components/ServicePage.vue';
 import ForBusinessPage from './components/ForBusinessPage.vue';
 import ContactsPage from './components/ContactsPage.vue';
+import AboutPage from './components/AboutPage.vue';
 
 app.component('home-page', HomePage);
+app.component('about-page', AboutPage);
 app.component('services-page', ServicesPage);
 app.component('service-page', ServicePage);
 app.component('for-business-page', ForBusinessPage);

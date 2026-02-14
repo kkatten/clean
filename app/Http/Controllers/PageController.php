@@ -6,6 +6,13 @@ use App\Models\Page;
 
 class PageController extends Controller
 {
+    public function about()
+    {
+        $page = Page::findBySlug('about');
+
+        return view('pages.about', compact('page'));
+    }
+
     public function forBusiness()
     {
         $page = Page::findBySlug('for_business');
