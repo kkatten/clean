@@ -146,7 +146,7 @@
           </div>
         </div>
         <p class="text-center mt-8">
-          <a href="/o-kompanii" class="inline-flex items-center gap-2 text-[#1e40af] font-semibold no-underline hover:text-[#1d4ed8]">Подробнее о компании →</a>
+          <a href="/about" class="inline-flex items-center gap-2 text-[#1e40af] font-semibold no-underline hover:text-[#1d4ed8]">Подробнее о компании →</a>
         </p>
       </div>
     </section>
@@ -156,18 +156,22 @@
         <h2 class="text-[2.5rem] font-bold text-center text-[#111827] mb-4">Основные услуги</h2>
         <p class="text-[#6b7280] text-center text-lg max-w-[640px] mx-auto mb-12 leading-relaxed">Полный спектр клининговых работ — от регулярной уборки до химчистки и мойки фасадов. Подберём решение под ваши задачи.</p>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-[1400px] mx-auto">
-          <div 
-            v-for="(item, index) in serviceExamples" 
-            :key="index"
-            class="bg-white rounded-lg p-6 border border-[#e5e7eb] shadow-[0_1px_3px_rgba(0,0,0,0.05)] transition-all duration-300 ease-in-out hover:-translate-y-[2px] hover:shadow-[0_4px_12px_rgba(30,64,175,0.15)] hover:border-[#2563eb]"
+          <a
+            v-for="(item, index) in servicesForBlock"
+            :key="item.slug || index"
+            :href="'/services/' + (item.slug || '')"
+            class="bg-white rounded-lg p-6 border border-[#e5e7eb] shadow-[0_1px_3px_rgba(0,0,0,0.05)] transition-all duration-300 ease-in-out hover:-translate-y-[2px] hover:shadow-[0_4px_12px_rgba(30,64,175,0.15)] hover:border-[#2563eb] no-underline block"
           >
-            <div class="aspect-[4/3] bg-[#e5e7eb] rounded-md mb-5"></div>
+            <div class="aspect-[4/3] bg-[#e5e7eb] rounded-md mb-5 overflow-hidden">
+              <img v-if="item.image_url" :src="item.image_url" :alt="item.title" class="w-full h-full object-cover" />
+            </div>
             <span class="text-[1.125rem] font-semibold text-[#111827] block mb-2">{{ item.title }}</span>
-            <p class="text-[#6b7280] text-sm leading-relaxed">{{ item.description }}</p>
-          </div>
+            <p v-if="item.price != null" class="text-[#1e40af] font-semibold text-sm mb-2">от {{ formatPrice(item.price) }} ₽</p>
+            <p class="text-[#6b7280] text-sm leading-relaxed">{{ item.meta_description || item.for_who || '' }}</p>
+          </a>
         </div>
         <p class="text-center mt-8">
-          <a href="/uslugi" class="inline-flex items-center gap-2 text-[#1e40af] font-semibold no-underline hover:text-[#1d4ed8]">Подробнее обо всех услугах →</a>
+          <a href="/services" class="inline-flex items-center gap-2 text-[#1e40af] font-semibold no-underline hover:text-[#1d4ed8]">Подробнее обо всех услугах →</a>
         </p>
       </div>
     </section>
@@ -180,7 +184,7 @@
           <a
             v-for="(item, index) in forWhoBlock.items"
             :key="index"
-            :href="item === 'Бизнес' ? '/dlya-biznesa' : '/uslugi'"
+            :href="item === 'Бизнес' ? '/for-business' : '/services'"
             class="bg-white border border-[#e5e7eb] rounded-lg p-6 text-center transition-all duration-300 ease-in-out hover:-translate-y-[2px] hover:shadow-[0_4px_12px_rgba(30,64,175,0.15)] hover:border-[#2563eb] no-underline block"
           >
             <div class="w-32 h-32 sm:w-40 sm:h-40 bg-[#e5e7eb] rounded-lg mx-auto mb-4 flex items-center justify-center">
@@ -190,7 +194,7 @@
           </a>
         </div>
         <p class="text-center mt-8">
-          <a href="/dlya-biznesa" class="inline-flex items-center gap-2 text-[#1e40af] font-semibold no-underline hover:text-[#1d4ed8]">Подробнее о клининге для бизнеса →</a>
+          <a href="/for-business" class="inline-flex items-center gap-2 text-[#1e40af] font-semibold no-underline hover:text-[#1d4ed8]">Подробнее о клининге для бизнеса →</a>
         </p>
       </div>
     </section>
@@ -331,6 +335,9 @@
         </div>
       </div>
     </section>
+
+    <Footer />
+    <DocumentModal />
   </div>
 </template>
 
@@ -382,12 +389,25 @@ const forWhoBlock = computed(() => {
 });
 
 const serviceExamples = [
-  { title: 'Уборка торговых точек', description: 'Комплексное обслуживание магазинов и торговых площадей.' },
-  { title: 'Мойка фасадов', description: 'Промывка витрин и фасадов до 16 м, своё оборудование.' },
-  { title: 'Уборка офисов', description: 'Регулярная уборка офисных помещений и БЦ.' },
-  { title: 'Коммерческий клининг', description: 'Обслуживание ТЦ, складов, производственных зон.' },
-  { title: 'Химчистка мебели', description: 'Чистка диванов, кресел, ковров профессиональными средствами.' }
+  { slug: 'uborka-torgovyh-tsentrov', title: 'Уборка торговых центров', price: 10, meta_description: 'Комплексное обслуживание магазинов и торговых площадей.' },
+  { slug: 'moyka-fasadov', title: 'Мойка фасадов', price: 10, meta_description: 'Промывка витрин и фасадов до 16 м, своё оборудование.' },
+  { slug: 'uborka-ofisov', title: 'Уборка офисов', price: 10, meta_description: 'Регулярная уборка офисных помещений и БЦ.' },
+  { slug: 'kommercheskiy-klining', title: 'Коммерческий клининг', price: 10, meta_description: 'Обслуживание ТЦ, складов, производственных зон.' },
+  { slug: 'himchistka-mebeli', title: 'Химчистка мебели', price: 10, meta_description: 'Чистка диванов, кресел, ковров профессиональными средствами.' }
 ];
+
+const servicesForBlock = computed(() => {
+  if (props.services && props.services.length > 0) {
+    return props.services.slice(0, 5);
+  }
+  return serviceExamples;
+});
+
+const formatPrice = (value) => {
+  const n = Number(value);
+  if (Number.isNaN(n)) return '—';
+  return new Intl.NumberFormat('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(n);
+};
 
 const openLeadModal = () => {
   window.dispatchEvent(new CustomEvent('open-lead-form'));
@@ -426,7 +446,7 @@ const submitLeadForm = async () => {
     formData.append('email', leadForm.email);
     formData.append('message', leadForm.message);
     
-    const response = await fetch('/zayavka', {
+    const response = await fetch('/order', {
       method: 'POST',
       body: formData,
       headers: {

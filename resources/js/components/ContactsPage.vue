@@ -144,6 +144,9 @@
         </div>
       </div>
     </section>
+
+    <Footer />
+    <DocumentModal />
   </div>
 </template>
 
@@ -199,7 +202,7 @@ const submitLeadForm = async () => {
     formData.append('email', leadForm.email);
     formData.append('message', leadForm.message);
     
-    const response = await fetch('/zayavka', {
+    const response = await fetch('/order', {
       method: 'POST',
       body: formData,
       headers: {

@@ -17,7 +17,11 @@ const app = createApp({});
 
 // Common components
 import Header from './components/Header.vue';
+import Footer from './components/Footer.vue';
+import DocumentModal from './components/DocumentModal.vue';
 app.component('Header', Header);
+app.component('Footer', Footer);
+app.component('DocumentModal', DocumentModal);
 
 // Page components
 import HomePage from './components/HomePage.vue';

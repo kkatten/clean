@@ -52,6 +52,7 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue']);
 
 const isOpen = ref(false);
+const savedScrollY = ref(0);
 const csrfToken = ref('');
 const loading = ref(false);
 const success = ref(false);
@@ -59,8 +60,27 @@ const error = ref('');
 
 const form = reactive({ name: '', phone: '', email: '', message: '' });
 
+function lockBodyScroll() {
+  savedScrollY.value = window.scrollY ?? window.pageYOffset;
+  document.documentElement.style.overflow = 'hidden';
+  document.documentElement.style.touchAction = 'none';
+  document.body.style.overflow = 'hidden';
+  document.body.style.touchAction = 'none';
+}
+
+function unlockBodyScroll() {
+  document.documentElement.style.overflow = '';
+  document.documentElement.style.touchAction = '';
+  document.body.style.overflow = '';
+  document.body.style.touchAction = '';
+}
+
 watch(() => props.modelValue, (v) => { isOpen.value = v; }, { immediate: true });
-watch(isOpen, (v) => { emit('update:modelValue', v); });
+watch(isOpen, (v) => {
+  emit('update:modelValue', v);
+  if (v) lockBodyScroll();
+  else unlockBodyScroll();
+});
 
 const close = () => {
   isOpen.value = false;
@@ -79,6 +99,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('open-lead-form', handleOpenEvent);
+  if (isOpen.value) unlockBodyScroll();
 });
 
 const submit = async () => {
@@ -93,7 +114,7 @@ const submit = async () => {
     fd.append('phone', form.phone);
     fd.append('email', form.email);
     fd.append('message', form.message);
-    const res = await fetch('/zayavka', { method: 'POST', body: fd, headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+    const res = await fetch('/order', { method: 'POST', body: fd, headers: { 'X-Requested-With': 'XMLHttpRequest' } });
     if (res.ok) {
       success.value = true;
       form.name = form.phone = form.email = form.message = '';

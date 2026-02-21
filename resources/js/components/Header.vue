@@ -11,10 +11,10 @@
       </a>
       <nav class="hidden md:flex gap-6 ml-auto mr-8">
         <a href="/" class="text-white no-underline text-lg font-medium transition-colors duration-300 hover:text-[#bfdbfe]">Главная</a>
-        <a href="/o-kompanii" class="text-white no-underline text-lg font-medium transition-colors duration-300 hover:text-[#bfdbfe]">О компании</a>
-        <a href="/uslugi" class="text-white no-underline text-lg font-medium transition-colors duration-300 hover:text-[#bfdbfe]">Услуги</a>
-        <a href="/dlya-biznesa" class="text-white no-underline text-lg font-medium transition-colors duration-300 hover:text-[#bfdbfe]">Для бизнеса</a>
-        <a href="/kontakty" class="text-white no-underline text-lg font-medium transition-colors duration-300 hover:text-[#bfdbfe]">Контакты</a>
+        <a href="/about" class="text-white no-underline text-lg font-medium transition-colors duration-300 hover:text-[#bfdbfe]">О компании</a>
+        <a href="/services" class="text-white no-underline text-lg font-medium transition-colors duration-300 hover:text-[#bfdbfe]">Услуги</a>
+        <a href="/for-business" class="text-white no-underline text-lg font-medium transition-colors duration-300 hover:text-[#bfdbfe]">Для бизнеса</a>
+        <a href="/contacts" class="text-white no-underline text-lg font-medium transition-colors duration-300 hover:text-[#bfdbfe]">Контакты</a>
       </nav>
       <div class="flex items-center gap-4 max-md:gap-3">
         <button @click.prevent="openLeadModal" class="hidden md:flex items-center gap-2 py-2.5 px-5 bg-[rgba(255,255,255,0.1)] text-white border border-[rgba(255,255,255,0.25)] rounded-[0.375rem] font-semibold text-sm cursor-pointer transition-all duration-300 hover:bg-[rgba(255,255,255,0.2)] hover:border-[rgba(255,255,255,0.4)] hover:-translate-y-0.5">
@@ -58,10 +58,10 @@
       
       <nav class="flex-1 py-8 px-6 flex flex-col gap-6 overflow-y-auto">
         <a href="/" @click="closeMobileMenu" class="text-white no-underline text-xl font-semibold py-3 transition-colors duration-300 hover:text-[#bfdbfe]">Главная</a>
-        <a href="/o-kompanii" @click="closeMobileMenu" class="text-white no-underline text-xl font-semibold py-3 transition-colors duration-300 hover:text-[#bfdbfe]">О компании</a>
-        <a href="/uslugi" @click="closeMobileMenu" class="text-white no-underline text-xl font-semibold py-3 transition-colors duration-300 hover:text-[#bfdbfe]">Услуги</a>
-        <a href="/dlya-biznesa" @click="closeMobileMenu" class="text-white no-underline text-xl font-semibold py-3 transition-colors duration-300 hover:text-[#bfdbfe]">Для бизнеса</a>
-        <a href="/kontakty" @click="closeMobileMenu" class="text-white no-underline text-xl font-semibold py-3 transition-colors duration-300 hover:text-[#bfdbfe]">Контакты</a>
+        <a href="/about" @click="closeMobileMenu" class="text-white no-underline text-xl font-semibold py-3 transition-colors duration-300 hover:text-[#bfdbfe]">О компании</a>
+        <a href="/services" @click="closeMobileMenu" class="text-white no-underline text-xl font-semibold py-3 transition-colors duration-300 hover:text-[#bfdbfe]">Услуги</a>
+        <a href="/for-business" @click="closeMobileMenu" class="text-white no-underline text-xl font-semibold py-3 transition-colors duration-300 hover:text-[#bfdbfe]">Для бизнеса</a>
+        <a href="/contacts" @click="closeMobileMenu" class="text-white no-underline text-xl font-semibold py-3 transition-colors duration-300 hover:text-[#bfdbfe]">Контакты</a>
       </nav>
       
       <div class="p-6 border-t border-white/10 space-y-4">
@@ -173,5 +173,6 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
+  document.body.style.overflow = '';
 });
 </script>

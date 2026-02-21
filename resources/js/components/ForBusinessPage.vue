@@ -155,7 +155,7 @@
           </div>
         </div>
         <div class="text-center mt-12">
-          <a href="/uslugi" class="inline-flex items-center gap-2 py-4 px-8 bg-[#1e40af] text-white rounded-[0.5rem] font-semibold no-underline transition-all hover:bg-[#1d4ed8]">Смотреть все услуги →</a>
+          <a href="/services" class="inline-flex items-center gap-2 py-4 px-8 bg-[#1e40af] text-white rounded-[0.5rem] font-semibold no-underline transition-all hover:bg-[#1d4ed8]">Смотреть все услуги →</a>
         </div>
       </div>
     </section>
@@ -167,6 +167,9 @@
         <button @click="openLeadModal" type="button" class="inline-flex items-center gap-2 py-4 px-8 bg-white text-[#1e40af] rounded-[0.5rem] font-semibold transition-all hover:bg-[#f3f4f6] cursor-pointer border-0">{{ ctaText }}</button>
       </div>
     </section>
+
+    <Footer />
+    <DocumentModal />
   </div>
 </template>
 
